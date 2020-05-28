@@ -39,14 +39,14 @@ namespace small {
     void dump() {
         if(running) {
             // ax
-            std::cout << "AX: " << std::hex << cpu->ax << std::endl \
-                      << "\tAL=" << std::hex << (std::uint16_t)cpu->al << std::endl \
-                      << "\tAH=" << std::hex << (std::uint16_t)cpu->ah << std::endl;
+            std::cout << "AX: 0x" << std::hex << cpu->ax << std::endl \
+                      << "\tAL=0x" << (std::uint16_t)cpu->al << std::endl \
+                      << "\tAH=0x" << (std::uint16_t)cpu->ah << std::endl;
 
             // bx
-            std::cout << "BX: " << std::hex << cpu->bx << std::endl \
-                      << "\tBL=" << std::hex << (std::uint16_t)cpu->bl << std::endl \
-                      << "\tBH=" << std::hex << (std::uint16_t)cpu->bh << std::endl;
+            std::cout << "BX: 0x" << std::hex << cpu->bx << std::endl \
+                      << "\tBL=0x" << (std::uint16_t)cpu->bl << std::endl \
+                      << "\tBH=0x" << (std::uint16_t)cpu->bh << std::endl;
         }
     }
     
