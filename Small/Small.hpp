@@ -129,14 +129,13 @@ namespace small {
         alloc<u16>(vl + vh*0x100);
     }
 
-    void alloc(_op op, u8* v, u8 sz) {
-        alloc(op);
+    void alloc(u8* v, u8 sz) {
         memcpy((void*)(memory + ap), (void*)v, sz);
         ap += sz;
     }
 
-    void alloc(_op op, const char* c) {
-        alloc(op, (u8*)c, strlen(c));
+    void alloc(const char* c) {
+        alloc((u8*)c, strlen(c));
     }
     
     void _mov(_reg16 r, u16 v) {
@@ -175,7 +174,7 @@ namespace small {
             terminal::bcolor(cpu->cl,cpu->dh,cpu->dl);
             break;
         case 0x03: {
-            std::cout << *(char*)(memory + cpu->dx);
+            std::cout << *(unsigned char*)(memory + cpu->dx);
             break;
         }
         default:
