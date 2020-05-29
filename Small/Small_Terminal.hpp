@@ -5,7 +5,7 @@
 
 namespace terminal {
     void move(unsigned int x, unsigned int y) {
-        printf("\033[%d;%dm", x, y);
+        printf("\033[%d;%df", x, y);
     }
 
     void fcolor(unsigned char r, unsigned char g, unsigned char b) {

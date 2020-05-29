@@ -21,6 +21,13 @@ namespace small {
             moval, movbl, movcl, movdl,
             movah, movbh, movch, movdh,
         intr = 0x20, 
+        jmp = 0x30,
+        incax = 0x40, incbx, inccx, incdx,
+            incal, incbl, inccl, incdl,
+            incah, incbh, incch, incdh,
+        decax = 0x50, decbx, deccx, decdx,
+            decal, decbl, deccl, decdl,
+            decah, decbh, decch, decdh,
         quit = 0xFF
     };
 
@@ -182,10 +189,34 @@ namespace small {
         }
     }
 
+    void _add(_reg16 r, u16 v) {
+        switch(r) {
+        case ax: cpu->ax += v; break;
+        case bx: cpu->bx += v; break;
+        case cx: cpu->cx += v; break;
+        case dx: cpu->dx += v; break;
+        default: break;
+        }
+    }
+
+    void _add(_reg8 r, u8 v) {
+        switch(r) {
+        case al: cpu->al += v; break;
+        case ah: cpu->ah += v; break;
+        case bl: cpu->bl += v; break;
+        case bh: cpu->bh += v; break;
+        case cl: cpu->cl += v; break;
+        case ch: cpu->ch += v; break;
+        case dl: cpu->dl += v; break;
+        case dh: cpu->dh += v; break;
+        default: break;
+        } 
+    }
+
     void exec() {
         // interpret bytecode
         if(running) {
-            for(; cpu->ip < ap && cpu->ip < SMALL_RAM; ++cpu->ip) {
+            for(; cpu->ip < ap && cpu->ip < SMALL_RAM; ) {
                 u8 c = *(memory + cpu->ip);
 
                 switch(c >> 4) {
@@ -221,9 +252,34 @@ namespace small {
                     }
                     break;
                 }
+                case 0x3: {
+                    if(cpu->ip < SMALL_RAM - 2) {
+                        u16 v = *(memory + ++cpu->ip) + 0x100 * (u16)(*(memory + ++cpu->ip));
+                        cpu->ip = v - 0x1;
+                    } else {
+                        dump();
+                        return;
+                    }
+                    break;
+                }
+                case 0x4: {
+                    if((c & 0xF) < 0x4)
+                        _add((_reg16)(c & 0xF),1);
+                    else
+                        _add((_reg8)((c & 0xF) - 0x4),1);
+                    break;
+                }
+                case 0x5: {
+                    if((c & 0xF) < 0x4)
+                        _add((_reg16)(c & 0xF),1);
+                    else
+                        _add((_reg8)((c & 0xF) - 0x4),1);
+                    break;
+                }
                 case 0xf: default:
                     goto die;
                 }
+                ++cpu->ip;
             }
         }
     die:
