@@ -7,8 +7,8 @@ bytecode from virtual memory using a simple byte by byte parser I made.
 
 Opcodes that are available include mov, jmp, inc, dec, int, and quit. Interrupts were used to interact with the terminal. There are 4 interrupts available:
 
-int | description
------------------
+int  | description
+---- | ------------------------------------------------------
 0x00 | move terminal cursor to DH,DL
 0x01 | set foreground terminal color to CL,DH,DL (rgb)
 0x02 | set background terminal color to CL,DH,DL (rgb)
