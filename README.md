@@ -14,7 +14,7 @@ int  | description
 0x02 | set background terminal color to CL,DH,DL (rgb)
 0x03 | print to std::out a byte at location DX as a character
 
-Somewhere on my computer there exists a version of Small with add, sub, mul, and div opcodes. I never completed it as I was concurrently in the process of creating my own terminal emulator using OpenGL. I had plans to implement a std::stack to emulate the push/pop opcodes.
+Somewhere on my computer there exists a version of Small with add, sub, mul, and div opcodes. I never completed it as I was concurrently in the process of creating my own terminal emulator using OpenGL.
 
 # How do I use it?
 The file "main.cpp" shows how to use Small in C++ with comments.
