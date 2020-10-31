@@ -4,7 +4,7 @@ An Intel 8086 microprocessor emulation created in C++ that can only execute simp
 # How does this work?
 Small allocates 4MB (0x1000 bytes) of memory on the heap, and that serves as the main memory location wherein instructions are allocated using the small::alloc method. Small emulates the general purpose 16-bit registers in the Intel 8086 microprocessor AX, BX, CX, DX, all of which are interchangeable as, contrary to the actual hardware, they have no intended purpose. Additionally, Small mimics the Intel 8086 microprocessor's little endianness. Each register is split into the 8-bit lo and hi bytes - for example, AL and AH. Additionally, the IP register is used to execute bytecode from virtual memory using a simple byte-by-byte parser I made. The IP register points to the instruction currently being executed.
 
-Opcodes that are available include mov, jmp, inc, dec, int, and quit. Interrupts were used to interact with the terminal using ANSI escape codes. There are 4 interrupts available:
+Opcodes that are available include mov, jmp, inc, dec, int, and quit (which doesn't exist, but shoot, I made it anyway.) These pretend BIOS interrupts were used to interact with the terminal using ANSI escape codes. There are 4 interrupts available:
 
 int  | description
 ---- | ------------------------------------------------------
@@ -13,7 +13,7 @@ int  | description
 0x02 | set background terminal color to CL,DH,DL (rgb)
 0x03 | print to std::out a byte at location DX as a character
 
-Somewhere on my computer there exists a version of Small with add, sub, mul, and div opcodes. I never completed it as I was concurrently in the process of creating my own terminal emulator using OpenGL.
+Somewhere on my computer there exists a version of Small with add, sub, mul, and div opcodes. I never completed it as I was concurrently in the process of creating my own terminal emulator using OpenGL, which was more difficult than I had originally thought. I wouldn't have had to try to make my own terminal emulator if Mac zsh wasn't so finicky.
 
 # How do I use it?
 The file "main.cpp" shows how to use Small in C++ with comments.
